@@ -24,6 +24,10 @@ do_f(Tm, <<"%Y">>) ->
   {{YY,_MM,_DD},_} = calendar:now_to_local_time(Tm),
   f4(YY);
 
+do_f(Tm, <<"%C">>) ->
+  {{YY,_MM,_DD},_} = calendar:now_to_local_time(Tm),
+  f2(round(YY/100));
+
 do_f(Tm, <<"%H">>) ->
   {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
   f2(H);
@@ -132,6 +136,7 @@ f_L_test() -> ?assertEqual("046", f(test_tm(), "%L")).
 f_u_test() -> ?assertEqual("7", f(test_tm(), "%u")).
 f_a_test() -> ?assertEqual("Sun", f(test_tm(), "%a")).
 f_A_test() -> ?assertEqual("Sunday", f(test_tm(), "%A")).
+f_C_test() -> ?assertEqual("20", f(test_tm(), "%C")).
 
 literal_percent_test() -> 
   ?assertEqual("%%19:07:50%%", f(test_tm(), "%%%T%%")).

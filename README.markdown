@@ -27,8 +27,8 @@ X %H - Hour of the day, 24-hour clock (00..23)
 X %m - Month of the year (01..12)
 X %M - Minute of the hour (00..59)
   %N - Fractional seconds digits
-  %p - Meridian indicator (``AM''  or  ``PM'')
-  %P - Meridian indicator (``am''  or  ``pm'')
+X %p - Meridian indicator (``AM''  or  ``PM'')
+X %P - Meridian indicator (``am''  or  ``pm'')
   %r - time, 12-hour (same as %I:%M:%S %p)
 X %R - time, 24-hour (%H:%M)
   %s - Number of seconds since 1970-01-01 00:00:00 UTC.

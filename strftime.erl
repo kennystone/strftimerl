@@ -36,6 +36,20 @@ do_f(Tm, <<"%S">>) ->
   {_,{_H,_M,S}} = calendar:now_to_local_time(Tm),
   f2(S);
 
+do_f(Tm, <<"%p">>) ->
+  {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
+  case H < 12 of
+    true -> "AM";
+    false -> "PM"
+  end;
+
+do_f(Tm, <<"%P">>) ->
+  {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
+  case H < 12 of
+    true -> "am";
+    false -> "pm"
+  end;
+
 do_f(Tm, <<"%D">>) -> f(Tm, "%m/%d/%y");
 do_f(Tm, <<"%F">>) -> f(Tm, "%Y-%m-%d");
 do_f(Tm, <<"%T">>) -> f(Tm, "%H:%M:%S");
@@ -83,5 +97,7 @@ f_M_test() -> ?assertEqual("07", f(test_tm(), "%M")).
 f_S_test() -> ?assertEqual("50", f(test_tm(), "%S")).
 f_T_test() -> ?assertEqual("19:07:50", f(test_tm(), "%T")).
 f_R_test() -> ?assertEqual("19:07", f(test_tm(), "%R")).
+f_p_test() -> ?assertEqual("PM", f(test_tm(), "%p")).
+f_P_test() -> ?assertEqual("pm", f(test_tm(), "%P")).
 
 

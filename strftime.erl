@@ -32,6 +32,13 @@ do_f(Tm, <<"%H">>) ->
   {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
   f2(H);
 
+do_f(Tm, <<"%I">>) ->
+  {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
+  case H < 13 of
+    true -> f2(H);
+    false -> f2(H-12)
+  end;
+
 do_f(Tm, <<"%M">>) ->
   {_,{_H,M,_S}} = calendar:now_to_local_time(Tm),
   f2(M);
@@ -123,6 +130,8 @@ month("12") -> "December".
 
 % 2011-06-19 19:07:50.46425 -0500
 test_tm() -> {1308,528470,46435}.
+% 2011-06-19 09:07:50.46425 -0500
+test_tm2() -> {1308,492470,46435}.
 
 %D test
 f_D_test() ->
@@ -169,6 +178,9 @@ f_C_test() -> ?assertEqual("20", f(test_tm(), "%C")).
 f_b_test() -> ?assertEqual("Jun", f(test_tm(), "%b")).
 f_B_test() -> ?assertEqual("June", f(test_tm(), "%B")).
 f_h_test() -> ?assertEqual("Jun", f(test_tm(), "%h")).
+f_I_test() -> 
+  ?assertEqual("09", f(test_tm2(), "%I")),
+  ?assertEqual("07", f(test_tm(), "%I")).
 
 literal_percent_test() -> 
   ?assertEqual("%%19:07:50%%", f(test_tm(), "%%%T%%")).

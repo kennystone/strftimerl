@@ -18,7 +18,7 @@ X %D - Date (%m/%d/%y)
 X %F - Equivalent to %Y-%m-%d (the ISO 8601 date format)
 X %h - Equivalent to %b
 X %H - Hour of the day, 24-hour clock (00..23)
-  %I - Hour of the day, 12-hour clock (01..12)
+X %I - Hour of the day, 12-hour clock (01..12)
   %k - hour, 24-hour clock, blank-padded ( 0..23)
   %l - hour, 12-hour clock, blank-padded ( 0..12)
 X %L - Millisecond of the second (000..999)

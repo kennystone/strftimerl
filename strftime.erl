@@ -41,6 +41,7 @@ do_f(Tm, <<"%u">>) ->
   integer_to_list(calendar:day_of_the_week(Date));
 
 do_f(Tm, <<"%a">>) -> abrv_day(do_f(Tm, <<"%u">>));
+do_f(Tm, <<"%A">>) -> weekday(do_f(Tm, <<"%u">>));
 
 do_f(Tm, <<"%p">>) ->
   {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
@@ -77,6 +78,15 @@ abrv_day("4") -> "Thu";
 abrv_day("5") -> "Fri";
 abrv_day("6") -> "Sat";
 abrv_day("7") -> "Sun".
+
+weekday("1") -> "Monday";
+weekday("2") -> "Tuesday";
+weekday("3") -> "Wednesday";
+weekday("4") -> "Thursday";
+weekday("5") -> "Friday";
+weekday("6") -> "Saturday";
+weekday("7") -> "Sunday".
+
 
 % 2011-06-19 19:07:50.46425 -0500
 test_tm() -> {1308,528470,46435}.
@@ -121,6 +131,7 @@ f_N_test() -> ?assertEqual("46435", f(test_tm(), "%N")).
 f_L_test() -> ?assertEqual("046", f(test_tm(), "%L")).
 f_u_test() -> ?assertEqual("7", f(test_tm(), "%u")).
 f_a_test() -> ?assertEqual("Sun", f(test_tm(), "%a")).
+f_A_test() -> ?assertEqual("Sunday", f(test_tm(), "%A")).
 
 literal_percent_test() -> 
   ?assertEqual("%%19:07:50%%", f(test_tm(), "%%%T%%")).

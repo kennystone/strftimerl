@@ -7,8 +7,8 @@ strftimerl(now(), String) ->
 
 String -> 
 `
-  %a - The abbreviated weekday name (``Sun'')
-  %A - The  full  weekday  name (``Sunday'')
+X %a - The abbreviated weekday name (``Sun'')
+X %A - The  full  weekday  name (``Sunday'')
   %b - The abbreviated month name (``Jan'')
   %B - The  full  month  name (``January'')
   %c - The preferred local date and time representation

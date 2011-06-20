@@ -32,6 +32,10 @@ do_f(Tm, <<"%M">>) ->
   {_,{_H,M,_S}} = calendar:now_to_local_time(Tm),
   f2(M);
 
+do_f(Tm, <<"%S">>) ->
+  {_,{_H,_M,S}} = calendar:now_to_local_time(Tm),
+  f2(S);
+
 do_f(Tm, <<"%D">>) -> f(Tm, "%m/%d/%y");
 do_f(Tm, <<"%F">>) -> f(Tm, "%Y-%m-%d");
 
@@ -74,5 +78,6 @@ f_Y_test() ->
 
 f_H_test() -> ?assertEqual("19", f(test_tm(), "%H")).
 f_M_test() -> ?assertEqual("07", f(test_tm(), "%M")).
+f_S_test() -> ?assertEqual("50", f(test_tm(), "%S")).
 
 

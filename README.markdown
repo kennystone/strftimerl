@@ -16,7 +16,7 @@ String ->
 X %d - Day of the month (01..31)
 X %D - Date (%m/%d/%y)
   %e - Day of the month, blank-padded ( 1..31)
-  %F - Equivalent to %Y-%m-%d (the ISO 8601 date format)
+X %F - Equivalent to %Y-%m-%d (the ISO 8601 date format)
   %h - Equivalent to %b
   %H - Hour of the day, 24-hour clock (00..23)
   %I - Hour of the day, 12-hour clock (01..12)

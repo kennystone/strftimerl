@@ -24,8 +24,8 @@ do_f(Tm, <<"%Y">>) ->
   {{YY,_MM,_DD},_} = calendar:now_to_local_time(Tm),
   f4(YY);
 
-do_f(Tm, <<"%D">>) ->
-  f(Tm, "%m/%d/%y");
+do_f(Tm, <<"%D">>) -> f(Tm, "%m/%d/%y");
+do_f(Tm, <<"%F">>) -> f(Tm, "%Y-%m-%d");
 
 do_f(_Tm,Str) -> Str.
 
@@ -39,6 +39,11 @@ test_tm() -> {1308,528470,46435}.
 f_D_test() ->
   ?assertEqual("06/19/11", f(test_tm(), "%D")),
   ?assertEqual("fooey06/19/11fooey", f(test_tm(), "fooey%Dfooey")).
+
+%F test
+f_F_test() ->
+  ?assertEqual("2011-06-19", f(test_tm(), "%F")),
+  ?assertEqual("fooey2011-06-19fooey", f(test_tm(), "fooey%Ffooey")).
 
 %y test
 f_y_test() ->

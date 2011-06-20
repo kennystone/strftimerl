@@ -10,7 +10,7 @@ because formatting times should be easy, like ruby's strftime
 
 `strftime:f2` uses system local time
 
-`strftime:f3` allows you to specify 'local' or 'universal'.
+`strftime:f3` allows you to specify 'local' or 'universal' as third argument.
 
 `strftime:f(now(), FormatString)`
 

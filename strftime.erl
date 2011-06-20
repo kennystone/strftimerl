@@ -99,5 +99,7 @@ f_T_test() -> ?assertEqual("19:07:50", f(test_tm(), "%T")).
 f_R_test() -> ?assertEqual("19:07", f(test_tm(), "%R")).
 f_p_test() -> ?assertEqual("PM", f(test_tm(), "%p")).
 f_P_test() -> ?assertEqual("pm", f(test_tm(), "%P")).
+literal_percent_test() -> 
+  ?assertEqual("%%19:07:50%%", f(test_tm(), "%%%T%%")).
 
 

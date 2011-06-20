@@ -44,13 +44,11 @@ X %T - time, 24-hour (%H:%M:%S)
           starting with the first Monday as the first
           day of the first week (00..53)
   %w - Day of the week (Sunday is 0, 0..6)
-  %x - Preferred representation for the date alone, no time
-  %X - Preferred representation for the time alone, no date
 X %y - Year without a century (00..99)
 X %Y - Year with century
   %z - Time zone as  hour offset from UTC (e.g. +0900)
   %Z - Time zone name
-  %% - Literal ``%'' character
+X %% - Literal ``%'' character
 `
 
    Now = now().

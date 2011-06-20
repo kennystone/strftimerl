@@ -13,8 +13,8 @@ String ->
   %B - The  full  month  name (``January'')
   %c - The preferred local date and time representation
   %C - Century (20 in 2009)
-  %d - Day of the month (01..31)
-  %D - Date (%m/%d/%y)
+X %d - Day of the month (01..31)
+X %D - Date (%m/%d/%y)
   %e - Day of the month, blank-padded ( 1..31)
   %F - Equivalent to %Y-%m-%d (the ISO 8601 date format)
   %h - Equivalent to %b
@@ -24,13 +24,10 @@ String ->
   %k - hour, 24-hour clock, blank-padded ( 0..23)
   %l - hour, 12-hour clock, blank-padded ( 0..12)
   %L - Millisecond of the second (000..999)
-  %m - Month of the year (01..12)
+X %m - Month of the year (01..12)
   %M - Minute of the hour (00..59)
   %n - Newline (\n)
-  %N - Fractional seconds digits, default is 9 digits (nanosecond)
-          %3N  millisecond (3 digits)
-          %6N  microsecond (6 digits)
-          %9N  nanosecond (9 digits)
+  %N - Fractional seconds digits
   %p - Meridian indicator (``AM''  or  ``PM'')
   %P - Meridian indicator (``am''  or  ``pm'')
   %r - time, 12-hour (same as %I:%M:%S %p)
@@ -51,7 +48,7 @@ String ->
   %w - Day of the week (Sunday is 0, 0..6)
   %x - Preferred representation for the date alone, no time
   %X - Preferred representation for the time alone, no date
-  %y - Year without a century (00..99)
+X %y - Year without a century (00..99)
   %Y - Year with century
   %z - Time zone as  hour offset from UTC (e.g. +0900)
   %Z - Time zone name
@@ -59,6 +56,6 @@ String ->
 `
 
    Now = now().
-   strftimerl:f("Printed on %m/%d/%Y", Now)  #=> "Printed on 11/19/2007"
-   strftimerl:f("at %I:%M%p", Now)           #=> "at 08:37AM"
+   strftimerl:f("Printed on %m/%d/%Y", Now). #=> "Printed on 11/19/2007"
+   strftimerl:f("at %I:%M%p", Now).          #=> "at 08:37AM"
 

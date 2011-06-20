@@ -37,12 +37,10 @@ X %v - VMS date (%e-%b-%Y)
 X %w - Day of the week (Sunday is 0, 0..6)
 X %y - Year without a century (00..99)
 X %Y - Year with century
-  %z - Time zone as  hour offset from UTC (e.g. +0900)
-  %Z - Time zone name
 X %% - Literal ``%'' character
 `
 
-   Now = now().
-   strftimerl:f("Printed on %m/%d/%Y", Now). #=> "Printed on 11/19/2007"
-   strftimerl:f("at %I:%M%p", Now).          #=> "at 08:37AM"
+Now = now().
+strftime:f("Printed on %m/%d/%Y", Now). #=> "Printed on 11/19/2007"
+strftime:f("at %I:%M%p", Now).          #=> "at 08:37AM"
 

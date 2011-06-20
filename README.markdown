@@ -29,7 +29,7 @@ X %p - Meridian indicator (``AM''  or  ``PM'')
 X %P - Meridian indicator (``am''  or  ``pm'')
 X %r - time, 12-hour (same as %I:%M:%S %p)
 X %R - time, 24-hour (%H:%M)
-  %s - Number of seconds since 1970-01-01 00:00:00 UTC.
+X %s - Number of seconds since 1970-01-01 00:00:00 UTC.
 X %S - Second of the minute (00..60)
 X %T - time, 24-hour (%H:%M:%S)
 X %u - Day of the week as a decimal, Monday being 1. (1..7)

@@ -63,6 +63,9 @@ do_f(Tm, <<"%u">>) ->
   {Date,_} = calendar:now_to_local_time(Tm),
   integer_to_list(calendar:day_of_the_week(Date));
 
+do_f({MegaSec,Sec,_}, <<"%s">>) -> 
+  integer_to_list(1000000*MegaSec + Sec);
+
 do_f(Tm, <<"%b">>) -> abrv_mon(lists:flatten(do_f(Tm, <<"%m">>)));
 do_f(Tm, <<"%h">>) -> do_f(Tm, <<"%b">>);
 do_f(Tm, <<"%B">>) -> month(lists:flatten(do_f(Tm, <<"%m">>)));
@@ -203,6 +206,7 @@ f_B_test() -> ?assertEqual("June", f(test_tm(), "%B")).
 f_h_test() -> ?assertEqual("Jun", f(test_tm(), "%h")).
 f_e_test() -> ?assertEqual("19", f(test_tm(), "%e")).
 f_r_test() -> ?assertEqual("07:07:50 PM", f(test_tm(), "%r")).
+f_s_test() -> ?assertEqual("1308528470", f(test_tm(), "%s")).
 f_I_test() -> 
   ?assertEqual("09", f(test_tm2(), "%I")),
   ?assertEqual("07", f(test_tm(), "%I")).

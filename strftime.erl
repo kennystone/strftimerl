@@ -1,70 +1,78 @@
 -module(strftime).
--export([f/2]).
+-export([f/2, f/3]).
 
 -include_lib("eunit/include/eunit.hrl").
 
 
-f({_MegaSec,_Sec,_MicroSec}=Tm, FormatStr) when is_list(FormatStr) ->
-  Res = [do_f(Tm, FPart) || FPart <- re:split(FormatStr,"([%][^%])")],
+f({_MegaSec,_Sec,_MicroSec}=Tm, FormatStr) ->
+  f({_MegaSec,_Sec,_MicroSec}=Tm, FormatStr, local).
+
+f({_MegaSec,_Sec,_MicroSec}=Tm, FormatStr, ZONAL) when is_list(FormatStr) ->
+  ZONALF = case ZONAL of
+    local     -> now_to_local_time;
+    universal -> now_to_universal_time;
+    Else      -> Else
+  end,
+  Res = [do_f(Tm, FPart, ZONALF) || FPart <- re:split(FormatStr,"([%][^%])")],
   binary_to_list(list_to_binary(Res)).
 
-do_f(Tm, <<"%d">>) ->
-  {{_YY,_MM,DD},_} = calendar:now_to_local_time(Tm),
+do_f(Tm, <<"%d">>, ZONAL) ->
+  {{_YY,_MM,DD},_} = calendar:ZONAL(Tm),
   f2(DD);
 
-do_f(Tm, <<"%e">>) ->
-  {{_YY,_MM,DD},_} = calendar:now_to_local_time(Tm),
+do_f(Tm, <<"%e">>, ZONAL) ->
+  {{_YY,_MM,DD},_} = calendar:ZONAL(Tm),
   pad(integer_to_list(DD),2);
 
-do_f(Tm, <<"%m">>) ->
-  {{_YY,MM,_DD},_} = calendar:now_to_local_time(Tm),
+do_f(Tm, <<"%m">>, ZONAL) ->
+  {{_YY,MM,_DD},_} = calendar:ZONAL(Tm),
   f2(MM);
 
-do_f(Tm, <<"%y">>) ->
-  {{YY,_MM,_DD},_} = calendar:now_to_local_time(Tm),
+do_f(Tm, <<"%y">>, ZONAL) ->
+  {{YY,_MM,_DD},_} = calendar:ZONAL(Tm),
   f2(YY);
 
-do_f(Tm, <<"%Y">>) ->
-  {{YY,_MM,_DD},_} = calendar:now_to_local_time(Tm),
+do_f(Tm, <<"%Y">>, ZONAL) ->
+  {{YY,_MM,_DD},_} = calendar:ZONAL(Tm),
   f4(YY);
 
-do_f(Tm, <<"%C">>) ->
-  {{YY,_MM,_DD},_} = calendar:now_to_local_time(Tm),
+do_f(Tm, <<"%C">>, ZONAL) ->
+  {{YY,_MM,_DD},_} = calendar:ZONAL(Tm),
   f2(round(YY/100));
 
-do_f(Tm, <<"%H">>) ->
-  {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
+do_f(Tm, <<"%H">>, ZONAL) ->
+  {_,{H,_M,_S}} = calendar:ZONAL(Tm),
   f2(H);
 
-do_f(Tm, <<"%l">>) ->
-  {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
+do_f(Tm, <<"%l">>, ZONAL) ->
+  {_,{H,_M,_S}} = calendar:ZONAL(Tm),
   pad(integer_to_list(H), 2);
 
-do_f(Tm, <<"%k">>) ->
-  {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
+do_f(Tm, <<"%k">>, ZONAL) ->
+  {_,{H,_M,_S}} = calendar:ZONAL(Tm),
   pad(integer_to_list(H), 2);
 
-do_f(Tm, <<"%I">>) ->
-  {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
+do_f(Tm, <<"%I">>, ZONAL) ->
+  {_,{H,_M,_S}} = calendar:ZONAL(Tm),
   case H < 13 of
     true -> f2(H);
     false -> f2(H-12)
   end;
 
-do_f(Tm, <<"%M">>) ->
-  {_,{_H,M,_S}} = calendar:now_to_local_time(Tm),
+do_f(Tm, <<"%M">>, ZONAL) ->
+  {_,{_H,M,_S}} = calendar:ZONAL(Tm),
   f2(M);
 
-do_f(Tm, <<"%S">>) ->
-  {_,{_H,_M,S}} = calendar:now_to_local_time(Tm),
+do_f(Tm, <<"%S">>, ZONAL) ->
+  {_,{_H,_M,S}} = calendar:ZONAL(Tm),
   f2(S);
 
-do_f(Tm, <<"%u">>) ->
-  {Date,_} = calendar:now_to_local_time(Tm),
+do_f(Tm, <<"%u">>, ZONAL) ->
+  {Date,_} = calendar:ZONAL(Tm),
   integer_to_list(calendar:day_of_the_week(Date));
 
-do_f(Tm, <<"%w">>) ->
-  {Date,_} = calendar:now_to_local_time(Tm),
+do_f(Tm, <<"%w">>, ZONAL) ->
+  {Date,_} = calendar:ZONAL(Tm),
   Day = calendar:day_of_the_week(Date),
   WDay = case Day of
     7 -> 0;
@@ -72,40 +80,40 @@ do_f(Tm, <<"%w">>) ->
   end,
   integer_to_list(WDay);
 
-do_f({MegaSec,Sec,_}, <<"%s">>) -> 
+do_f({MegaSec,Sec,_}, <<"%s">>, _) -> 
   integer_to_list(1000000*MegaSec + Sec);
 
-do_f(Tm, <<"%b">>) -> abrv_mon(lists:flatten(do_f(Tm, <<"%m">>)));
-do_f(Tm, <<"%h">>) -> do_f(Tm, <<"%b">>);
-do_f(Tm, <<"%B">>) -> month(lists:flatten(do_f(Tm, <<"%m">>)));
-do_f(Tm, <<"%a">>) -> abrv_day(lists:flatten(do_f(Tm, <<"%u">>)));
-do_f(Tm, <<"%A">>) -> weekday(lists:flatten(do_f(Tm, <<"%u">>)));
+do_f(Tm, <<"%b">>, Z) -> abrv_mon(lists:flatten(do_f(Tm, <<"%m">>, Z)));
+do_f(Tm, <<"%h">>, Z) -> do_f(Tm, <<"%b">>, Z);
+do_f(Tm, <<"%B">>, Z) -> month(lists:flatten(do_f(Tm, <<"%m">>, Z)));
+do_f(Tm, <<"%a">>, Z) -> abrv_day(lists:flatten(do_f(Tm, <<"%u">>, Z)));
+do_f(Tm, <<"%A">>, Z) -> weekday(lists:flatten(do_f(Tm, <<"%u">>, Z)));
 
-do_f(Tm, <<"%p">>) ->
-  {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
+do_f(Tm, <<"%p">>, ZONAL) ->
+  {_,{H,_M,_S}} = calendar:ZONAL(Tm),
   case H < 12 of
     true -> "AM";
     false -> "PM"
   end;
 
-do_f(Tm, <<"%P">>) ->
-  {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
+do_f(Tm, <<"%P">>, ZONAL) ->
+  {_,{H,_M,_S}} = calendar:ZONAL(Tm),
   case H < 12 of
     true -> "am";
     false -> "pm"
   end;
 
-do_f({_,_,MicroSec}, <<"%N">>) -> integer_to_list(MicroSec);
-do_f({_,_,MicroSec}, <<"%L">>) -> f3(round(MicroSec/1000));
+do_f({_,_,MicroSec}, <<"%N">>,_) -> integer_to_list(MicroSec);
+do_f({_,_,MicroSec}, <<"%L">>,_) -> f3(round(MicroSec/1000));
 
-do_f(Tm, <<"%D">>) -> f(Tm, "%m/%d/%y");
-do_f(Tm, <<"%F">>) -> f(Tm, "%Y-%m-%d");
-do_f(Tm, <<"%T">>) -> f(Tm, "%H:%M:%S");
-do_f(Tm, <<"%R">>) -> f(Tm, "%H:%M");
-do_f(Tm, <<"%r">>) -> f(Tm, "%I:%M:%S %p");
-do_f(Tm, <<"%v">>) -> f(Tm, "%e-%b-%Y");
+do_f(Tm, <<"%D">>, Z) -> f(Tm, "%m/%d/%y", Z);
+do_f(Tm, <<"%F">>, Z) -> f(Tm, "%Y-%m-%d", Z);
+do_f(Tm, <<"%T">>, Z) -> f(Tm, "%H:%M:%S", Z);
+do_f(Tm, <<"%R">>, Z) -> f(Tm, "%H:%M", Z);
+do_f(Tm, <<"%r">>, Z) -> f(Tm, "%I:%M:%S %p", Z);
+do_f(Tm, <<"%v">>, Z) -> f(Tm, "%e-%b-%Y", Z);
 
-do_f(_Tm,Str) -> Str.
+do_f(_Tm,Str,_) -> Str.
 
 f2(N) -> io_lib:format("~2.2.0w",[(N rem 100)]).
 f3(N) -> io_lib:format("~3.3.0w",[(N rem 1000)]).
@@ -226,6 +234,9 @@ f_k_test() ->
   ?assertEqual("19", f(test_tm(), "%k")),
   ?assertEqual(" 9", f(test_tm2(), "%k")).
 
+f_universal_test() -> 
+  ?assertEqual("06/20/11", f(test_tm(), "%D", universal)),
+  ?assertEqual("00:07:50", f(test_tm(), "%T", universal)).
 
 literal_percent_test() -> 
   ?assertEqual("%%19:07:50%%", f(test_tm(), "%%%T%%")).

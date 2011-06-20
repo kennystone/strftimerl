@@ -8,10 +8,10 @@ because formatting times should be easy, like ruby's strftime
     strftime:f(now(), "at %I:%M%p", universal).  %=> "at 02:37PM"
     strftime:f(now(), "%D-%T.%N").               %=> "11/19/2007-08:38:02.445443"
 
-`strftime:f(now(), FormatString)`
+`strftime:f2` uses system local time
+`strftime:f3` allows you to specify 'local' or 'universal'.
 
-### `strftime:f2` uses system local time
-### `strftime:f3` allows you to specify 'local' or 'universal'.
+`strftime:f(now(), FormatString)`
 
 + `%a` - The abbreviated weekday name ('Sun')
 + `%A` - The  full  weekday  name ('Sunday')

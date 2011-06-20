@@ -2,7 +2,9 @@ THE GOAL
 ========  
 
 `Now = now().`
+
 `strftime:f("Printed on %m/%d/%Y", Now). #=> "Printed on 11/19/2007"`
+
 `strftime:f("at %I:%M%p", Now).          #=> "at 08:37AM"`
 
 `strftimerl(now(), FormatString)`

@@ -7,7 +7,7 @@ because formatting times should be easy, like ruby's (and others) strftime
     strftime:f("Printed on %m/%d/%Y", Now). %=> "Printed on 11/19/2007"
     strftime:f("at %I:%M%p", Now).          %=> "at 08:37AM"
 
-`strftimerl(now(), FormatString)`
+`strftime:f(now(), FormatString)`
 
 implemented the following from from ruby's 1.9 strftime docs
 

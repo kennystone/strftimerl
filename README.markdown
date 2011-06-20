@@ -1,7 +1,7 @@
 ERLANG STRFTIME
 ===============
 
-because formatting times should be easy, like ruby's (and others) strftime
+because formatting times should be easy, like ruby's strftime
 
     strftime:f(now(), "Printed on %m/%d/%Y").    %=> "Printed on 11/19/2007"
     strftime:f(now(), "at %I:%M%p").             %=> "at 08:37AM"

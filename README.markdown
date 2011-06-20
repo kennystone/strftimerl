@@ -9,8 +9,6 @@ because formatting times should be easy, like ruby's (and others) strftime
 
 `strftime:f(now(), FormatString)`
 
-implemented the following from from ruby's 1.9 strftime docs
-
 + `%a` - The abbreviated weekday name ('Sun')
 + `%A` - The  full  weekday  name ('Sunday')
 + `%b` - The abbreviated month name ('Jan')

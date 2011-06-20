@@ -3,9 +3,10 @@ ERLANG STRFTIME
 
 because formatting times should be easy, like ruby's (and others) strftime
 
-    strftime:f(now(), "Printed on %m/%d/%Y"). %=> "Printed on 11/19/2007"
-    strftime:f(now(), "at %I:%M%p").          %=> "at 08:37AM"
-    strftime:f(now(), "%D-%T.%N").            %=> "11/19/2007-08:38:02.445443"
+    strftime:f(now(), "Printed on %m/%d/%Y").    %=> "Printed on 11/19/2007"
+    strftime:f(now(), "at %I:%M%p").             %=> "at 08:37AM"
+    strftime:f(now(), "at %I:%M%p", universal).  %=> "at 02:37PM"
+    strftime:f(now(), "%D-%T.%N").               %=> "11/19/2007-08:38:02.445443"
 
 `strftime:f(now(), FormatString)`
 

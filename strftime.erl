@@ -32,6 +32,10 @@ do_f(Tm, <<"%H">>) ->
   {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
   f2(H);
 
+do_f(Tm, <<"%k">>) ->
+  {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
+  pad(integer_to_list(H), 2);
+
 do_f(Tm, <<"%I">>) ->
   {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
   case H < 13 of
@@ -84,6 +88,9 @@ do_f(_Tm,Str) -> Str.
 f2(N) -> io_lib:format("~2.2.0w",[(N rem 100)]).
 f3(N) -> io_lib:format("~3.3.0w",[(N rem 1000)]).
 f4(N) -> io_lib:format("~4.4.0w",[(N rem 10000)]).
+
+pad(Str, 2) when length(Str) < 2 -> [" ",Str];
+pad(Str,_N) -> Str.
 
 abrv_day("1") -> "Mon";
 abrv_day("2") -> "Tue";
@@ -162,7 +169,10 @@ f_Y_test() ->
   ?assertEqual("2011", f(test_tm(), "%Y")),
   ?assertEqual("fooey2011", f(test_tm(), "fooey%Y")).
 
-f_H_test() -> ?assertEqual("19", f(test_tm(), "%H")).
+f_H_test() -> 
+  ?assertEqual("19", f(test_tm(), "%H")),
+  ?assertEqual("09", f(test_tm2(), "%H")).
+
 f_M_test() -> ?assertEqual("07", f(test_tm(), "%M")).
 f_S_test() -> ?assertEqual("50", f(test_tm(), "%S")).
 f_T_test() -> ?assertEqual("19:07:50", f(test_tm(), "%T")).
@@ -181,6 +191,10 @@ f_h_test() -> ?assertEqual("Jun", f(test_tm(), "%h")).
 f_I_test() -> 
   ?assertEqual("09", f(test_tm2(), "%I")),
   ?assertEqual("07", f(test_tm(), "%I")).
+f_k_test() -> 
+  ?assertEqual("19", f(test_tm(), "%k")),
+  ?assertEqual(" 9", f(test_tm2(), "%k")).
+
 
 literal_percent_test() -> 
   ?assertEqual("%%19:07:50%%", f(test_tm(), "%%%T%%")).

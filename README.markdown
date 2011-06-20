@@ -23,10 +23,10 @@ X %H - Hour of the day, 24-hour clock (00..23)
   %j - Day of the year (001..366)
   %k - hour, 24-hour clock, blank-padded ( 0..23)
   %l - hour, 12-hour clock, blank-padded ( 0..12)
-  %L - Millisecond of the second (000..999)
+X %L - Millisecond of the second (000..999)
 X %m - Month of the year (01..12)
 X %M - Minute of the hour (00..59)
-  %N - Fractional seconds digits
+X %N - Fractional seconds digits
 X %p - Meridian indicator (``AM''  or  ``PM'')
 X %P - Meridian indicator (``am''  or  ``pm'')
   %r - time, 12-hour (same as %I:%M:%S %p)
@@ -34,7 +34,7 @@ X %R - time, 24-hour (%H:%M)
   %s - Number of seconds since 1970-01-01 00:00:00 UTC.
 X %S - Second of the minute (00..60)
 X %T - time, 24-hour (%H:%M:%S)
-  %u - Day of the week as a decimal, Monday being 1. (1..7)
+X %u - Day of the week as a decimal, Monday being 1. (1..7)
   %U - Week  number  of the current year,
           starting with the first Sunday as the first
           day of the first week (00..53)

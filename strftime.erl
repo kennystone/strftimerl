@@ -36,6 +36,10 @@ do_f(Tm, <<"%S">>) ->
   {_,{_H,_M,S}} = calendar:now_to_local_time(Tm),
   f2(S);
 
+do_f(Tm, <<"%u">>) ->
+  {Date,_} = calendar:now_to_local_time(Tm),
+  integer_to_list(calendar:day_of_the_week(Date));
+
 do_f(Tm, <<"%p">>) ->
   {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
   case H < 12 of
@@ -105,6 +109,7 @@ f_p_test() -> ?assertEqual("PM", f(test_tm(), "%p")).
 f_P_test() -> ?assertEqual("pm", f(test_tm(), "%P")).
 f_N_test() -> ?assertEqual("46435", f(test_tm(), "%N")).
 f_L_test() -> ?assertEqual("046", f(test_tm(), "%L")).
+f_u_test() -> ?assertEqual("7", f(test_tm(), "%u")).
 
 literal_percent_test() -> 
   ?assertEqual("%%19:07:50%%", f(test_tm(), "%%%T%%")).

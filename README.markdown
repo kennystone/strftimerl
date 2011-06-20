@@ -1,5 +1,7 @@
-THE GOAL
-========  
+ERLANG STRFTIME
+===============
+
+because formatting times should be easy, like ruby's (and others) strftime
 
 `Now = now().`
 

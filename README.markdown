@@ -27,7 +27,7 @@ X %M - Minute of the hour (00..59)
 X %N - Fractional seconds digits
 X %p - Meridian indicator (``AM''  or  ``PM'')
 X %P - Meridian indicator (``am''  or  ``pm'')
-  %r - time, 12-hour (same as %I:%M:%S %p)
+X %r - time, 12-hour (same as %I:%M:%S %p)
 X %R - time, 24-hour (%H:%M)
   %s - Number of seconds since 1970-01-01 00:00:00 UTC.
 X %S - Second of the minute (00..60)

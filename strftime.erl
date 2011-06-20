@@ -25,8 +25,7 @@ do_f(Tm, <<"%Y">>) ->
   f4(YY);
 
 do_f(Tm, <<"%D">>) ->
-  {{YY, MM, DD},_} = calendar:now_to_local_time(Tm),
-  [f2(MM), "/", f2(DD), "/", f2(YY rem 100)];
+  f(Tm, "%m/%d/%y");
 
 do_f(_Tm,Str) -> Str.
 

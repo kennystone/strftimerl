@@ -49,7 +49,7 @@ X %m - Month of the year (01..12)
   %x - Preferred representation for the date alone, no time
   %X - Preferred representation for the time alone, no date
 X %y - Year without a century (00..99)
-  %Y - Year with century
+X %Y - Year with century
   %z - Time zone as  hour offset from UTC (e.g. +0900)
   %Z - Time zone name
   %% - Literal ``%'' character

@@ -51,6 +51,7 @@ do_f(Tm, <<"%P">>) ->
   end;
 
 do_f({_,_,MicroSec}, <<"%N">>) -> integer_to_list(MicroSec);
+do_f({_,_,MicroSec}, <<"%L">>) -> f3(round(MicroSec/1000));
 
 do_f(Tm, <<"%D">>) -> f(Tm, "%m/%d/%y");
 do_f(Tm, <<"%F">>) -> f(Tm, "%Y-%m-%d");
@@ -60,6 +61,7 @@ do_f(Tm, <<"%R">>) -> f(Tm, "%H:%M");
 do_f(_Tm,Str) -> Str.
 
 f2(N) -> io_lib:format("~2.2.0w",[(N rem 100)]).
+f3(N) -> io_lib:format("~3.3.0w",[(N rem 1000)]).
 f4(N) -> io_lib:format("~4.4.0w",[(N rem 10000)]).
 
 % 2011-06-19 19:07:50.46425 -0500
@@ -102,6 +104,7 @@ f_R_test() -> ?assertEqual("19:07", f(test_tm(), "%R")).
 f_p_test() -> ?assertEqual("PM", f(test_tm(), "%p")).
 f_P_test() -> ?assertEqual("pm", f(test_tm(), "%P")).
 f_N_test() -> ?assertEqual("46435", f(test_tm(), "%N")).
+f_L_test() -> ?assertEqual("046", f(test_tm(), "%L")).
 
 literal_percent_test() -> 
   ?assertEqual("%%19:07:50%%", f(test_tm(), "%%%T%%")).

@@ -9,6 +9,7 @@ because formatting times should be easy, like ruby's strftime
     strftime:f(now(), "%D-%T.%N").               %=> "11/19/2007-08:38:02.445443"
 
 `strftime:f2` uses system local time
+
 `strftime:f3` allows you to specify 'local' or 'universal'.
 
 `strftime:f(now(), FormatString)`

@@ -50,6 +50,8 @@ do_f(Tm, <<"%P">>) ->
     false -> "pm"
   end;
 
+do_f({_,_,MicroSec}, <<"%N">>) -> integer_to_list(MicroSec);
+
 do_f(Tm, <<"%D">>) -> f(Tm, "%m/%d/%y");
 do_f(Tm, <<"%F">>) -> f(Tm, "%Y-%m-%d");
 do_f(Tm, <<"%T">>) -> f(Tm, "%H:%M:%S");
@@ -99,6 +101,8 @@ f_T_test() -> ?assertEqual("19:07:50", f(test_tm(), "%T")).
 f_R_test() -> ?assertEqual("19:07", f(test_tm(), "%R")).
 f_p_test() -> ?assertEqual("PM", f(test_tm(), "%p")).
 f_P_test() -> ?assertEqual("pm", f(test_tm(), "%P")).
+f_N_test() -> ?assertEqual("46435", f(test_tm(), "%N")).
+
 literal_percent_test() -> 
   ?assertEqual("%%19:07:50%%", f(test_tm(), "%%%T%%")).
 

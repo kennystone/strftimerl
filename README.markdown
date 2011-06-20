@@ -10,6 +10,9 @@ because formatting times should be easy, like ruby's strftime
 
 `strftime:f(now(), FormatString)`
 
+### `strftime:f2` uses system local time
+### `strftime:f3` allows you to specify 'local' or 'universal'.
+
 + `%a` - The abbreviated weekday name ('Sun')
 + `%A` - The  full  weekday  name ('Sunday')
 + `%b` - The abbreviated month name ('Jan')

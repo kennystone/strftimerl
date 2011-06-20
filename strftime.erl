@@ -44,8 +44,10 @@ do_f(Tm, <<"%u">>) ->
   {Date,_} = calendar:now_to_local_time(Tm),
   integer_to_list(calendar:day_of_the_week(Date));
 
-do_f(Tm, <<"%a">>) -> abrv_day(do_f(Tm, <<"%u">>));
-do_f(Tm, <<"%A">>) -> weekday(do_f(Tm, <<"%u">>));
+do_f(Tm, <<"%b">>) -> abrv_mon(lists:flatten(do_f(Tm, <<"%m">>)));
+do_f(Tm, <<"%B">>) -> month(lists:flatten(do_f(Tm, <<"%m">>)));
+do_f(Tm, <<"%a">>) -> abrv_day(lists:flatten(do_f(Tm, <<"%u">>)));
+do_f(Tm, <<"%A">>) -> weekday(lists:flatten(do_f(Tm, <<"%u">>)));
 
 do_f(Tm, <<"%p">>) ->
   {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
@@ -90,6 +92,32 @@ weekday("4") -> "Thursday";
 weekday("5") -> "Friday";
 weekday("6") -> "Saturday";
 weekday("7") -> "Sunday".
+
+abrv_mon("01") -> "Jan";
+abrv_mon("02") -> "Feb";
+abrv_mon("03") -> "Mar";
+abrv_mon("04") -> "Apr";
+abrv_mon("05") -> "May";
+abrv_mon("06") -> "Jun";
+abrv_mon("07") -> "Jul";
+abrv_mon("08") -> "Aug";
+abrv_mon("09") -> "Sep";
+abrv_mon("10") -> "Oct";
+abrv_mon("11") -> "Nov";
+abrv_mon("12") -> "Dec".
+
+month("01") -> "January";
+month("02") -> "February";
+month("03") -> "March";
+month("04") -> "April";
+month("05") -> "May";
+month("06") -> "June";
+month("07") -> "July";
+month("08") -> "August";
+month("09") -> "September";
+month("10") -> "October";
+month("11") -> "November";
+month("12") -> "December".
 
 
 % 2011-06-19 19:07:50.46425 -0500
@@ -137,6 +165,8 @@ f_u_test() -> ?assertEqual("7", f(test_tm(), "%u")).
 f_a_test() -> ?assertEqual("Sun", f(test_tm(), "%a")).
 f_A_test() -> ?assertEqual("Sunday", f(test_tm(), "%A")).
 f_C_test() -> ?assertEqual("20", f(test_tm(), "%C")).
+f_b_test() -> ?assertEqual("Jun", f(test_tm(), "%b")).
+f_B_test() -> ?assertEqual("June", f(test_tm(), "%B")).
 
 literal_percent_test() -> 
   ?assertEqual("%%19:07:50%%", f(test_tm(), "%%%T%%")).

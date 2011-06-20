@@ -9,8 +9,8 @@ String ->
 `
 X %a - The abbreviated weekday name (``Sun'')
 X %A - The  full  weekday  name (``Sunday'')
-  %b - The abbreviated month name (``Jan'')
-  %B - The  full  month  name (``January'')
+X %b - The abbreviated month name (``Jan'')
+X %B - The  full  month  name (``January'')
 X %C - Century (20 in 2009)
 X %d - Day of the month (01..31)
 X %D - Date (%m/%d/%y)
@@ -19,7 +19,6 @@ X %F - Equivalent to %Y-%m-%d (the ISO 8601 date format)
   %h - Equivalent to %b
 X %H - Hour of the day, 24-hour clock (00..23)
   %I - Hour of the day, 12-hour clock (01..12)
-  %j - Day of the year (001..366)
   %k - hour, 24-hour clock, blank-padded ( 0..23)
   %l - hour, 12-hour clock, blank-padded ( 0..12)
 X %L - Millisecond of the second (000..999)

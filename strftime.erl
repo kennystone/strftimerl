@@ -94,6 +94,7 @@ do_f(Tm, <<"%F">>) -> f(Tm, "%Y-%m-%d");
 do_f(Tm, <<"%T">>) -> f(Tm, "%H:%M:%S");
 do_f(Tm, <<"%R">>) -> f(Tm, "%H:%M");
 do_f(Tm, <<"%r">>) -> f(Tm, "%I:%M:%S %p");
+do_f(Tm, <<"%v">>) -> f(Tm, "%e-%b-%Y");
 
 do_f(_Tm,Str) -> Str.
 
@@ -206,6 +207,7 @@ f_B_test() -> ?assertEqual("June", f(test_tm(), "%B")).
 f_h_test() -> ?assertEqual("Jun", f(test_tm(), "%h")).
 f_e_test() -> ?assertEqual("19", f(test_tm(), "%e")).
 f_r_test() -> ?assertEqual("07:07:50 PM", f(test_tm(), "%r")).
+f_v_test() -> ?assertEqual("19-Jun-2011", f(test_tm(), "%v")).
 f_s_test() -> ?assertEqual("1308528470", f(test_tm(), "%s")).
 f_I_test() -> 
   ?assertEqual("09", f(test_tm2(), "%I")),

@@ -14,7 +14,7 @@ X %B - The  full  month  name (``January'')
 X %C - Century (20 in 2009)
 X %d - Day of the month (01..31)
 X %D - Date (%m/%d/%y)
-  %e - Day of the month, blank-padded ( 1..31)
+X %e - Day of the month, blank-padded ( 1..31)
 X %F - Equivalent to %Y-%m-%d (the ISO 8601 date format)
 X %h - Equivalent to %b
 X %H - Hour of the day, 24-hour clock (00..23)

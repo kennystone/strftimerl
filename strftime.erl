@@ -12,6 +12,10 @@ do_f(Tm, <<"%d">>) ->
   {{_YY,_MM,DD},_} = calendar:now_to_local_time(Tm),
   f2(DD);
 
+do_f(Tm, <<"%e">>) ->
+  {{_YY,_MM,DD},_} = calendar:now_to_local_time(Tm),
+  pad(integer_to_list(DD),2);
+
 do_f(Tm, <<"%m">>) ->
   {{_YY,MM,_DD},_} = calendar:now_to_local_time(Tm),
   f2(MM);
@@ -188,6 +192,7 @@ f_C_test() -> ?assertEqual("20", f(test_tm(), "%C")).
 f_b_test() -> ?assertEqual("Jun", f(test_tm(), "%b")).
 f_B_test() -> ?assertEqual("June", f(test_tm(), "%B")).
 f_h_test() -> ?assertEqual("Jun", f(test_tm(), "%h")).
+f_e_test() -> ?assertEqual("19", f(test_tm(), "%e")).
 f_I_test() -> 
   ?assertEqual("09", f(test_tm2(), "%I")),
   ?assertEqual("07", f(test_tm(), "%I")).

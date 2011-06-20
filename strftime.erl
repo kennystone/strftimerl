@@ -36,6 +36,10 @@ do_f(Tm, <<"%H">>) ->
   {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
   f2(H);
 
+do_f(Tm, <<"%l">>) ->
+  {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
+  pad(integer_to_list(H), 2);
+
 do_f(Tm, <<"%k">>) ->
   {_,{H,_M,_S}} = calendar:now_to_local_time(Tm),
   pad(integer_to_list(H), 2);
@@ -176,6 +180,10 @@ f_Y_test() ->
 f_H_test() -> 
   ?assertEqual("19", f(test_tm(), "%H")),
   ?assertEqual("09", f(test_tm2(), "%H")).
+
+f_l_test() -> 
+  ?assertEqual("19", f(test_tm(), "%l")),
+  ?assertEqual(" 9", f(test_tm2(), "%l")).
 
 f_M_test() -> ?assertEqual("07", f(test_tm(), "%M")).
 f_S_test() -> ?assertEqual("50", f(test_tm(), "%S")).

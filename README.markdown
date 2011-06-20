@@ -20,7 +20,7 @@ X %h - Equivalent to %b
 X %H - Hour of the day, 24-hour clock (00..23)
 X %I - Hour of the day, 12-hour clock (01..12)
 X %k - hour, 24-hour clock, blank-padded ( 0..23)
-  %l - hour, 12-hour clock, blank-padded ( 0..12)
+X %l - hour, 12-hour clock, blank-padded ( 0..12)
 X %L - Millisecond of the second (000..999)
 X %m - Month of the year (01..12)
 X %M - Minute of the hour (00..59)

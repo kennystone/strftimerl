@@ -30,7 +30,7 @@ X %M - Minute of the hour (00..59)
   %p - Meridian indicator (``AM''  or  ``PM'')
   %P - Meridian indicator (``am''  or  ``pm'')
   %r - time, 12-hour (same as %I:%M:%S %p)
-  %R - time, 24-hour (%H:%M)
+X %R - time, 24-hour (%H:%M)
   %s - Number of seconds since 1970-01-01 00:00:00 UTC.
 X %S - Second of the minute (00..60)
 X %T - time, 24-hour (%H:%M:%S)

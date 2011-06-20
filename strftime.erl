@@ -39,6 +39,7 @@ do_f(Tm, <<"%S">>) ->
 do_f(Tm, <<"%D">>) -> f(Tm, "%m/%d/%y");
 do_f(Tm, <<"%F">>) -> f(Tm, "%Y-%m-%d");
 do_f(Tm, <<"%T">>) -> f(Tm, "%H:%M:%S");
+do_f(Tm, <<"%R">>) -> f(Tm, "%H:%M");
 
 do_f(_Tm,Str) -> Str.
 
@@ -81,5 +82,6 @@ f_H_test() -> ?assertEqual("19", f(test_tm(), "%H")).
 f_M_test() -> ?assertEqual("07", f(test_tm(), "%M")).
 f_S_test() -> ?assertEqual("50", f(test_tm(), "%S")).
 f_T_test() -> ?assertEqual("19:07:50", f(test_tm(), "%T")).
+f_R_test() -> ?assertEqual("19:07", f(test_tm(), "%R")).
 
 

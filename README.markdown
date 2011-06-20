@@ -6,7 +6,7 @@ from ruby's 1.9 strftime docs
 strftimerl(now(), String) ->
 
 String -> 
-`
+
 X %a - The abbreviated weekday name (``Sun'')
 X %A - The  full  weekday  name (``Sunday'')
 X %b - The abbreviated month name (``Jan'')
@@ -38,7 +38,6 @@ X %w - Day of the week (Sunday is 0, 0..6)
 X %y - Year without a century (00..99)
 X %Y - Year with century
 X %% - Literal ``%'' character
-`
 
 Now = now().
 strftime:f("Printed on %m/%d/%Y", Now). #=> "Printed on 11/19/2007"

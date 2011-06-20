@@ -45,6 +45,7 @@ do_f(Tm, <<"%u">>) ->
   integer_to_list(calendar:day_of_the_week(Date));
 
 do_f(Tm, <<"%b">>) -> abrv_mon(lists:flatten(do_f(Tm, <<"%m">>)));
+do_f(Tm, <<"%h">>) -> do_f(Tm, <<"%b">>);
 do_f(Tm, <<"%B">>) -> month(lists:flatten(do_f(Tm, <<"%m">>)));
 do_f(Tm, <<"%a">>) -> abrv_day(lists:flatten(do_f(Tm, <<"%u">>)));
 do_f(Tm, <<"%A">>) -> weekday(lists:flatten(do_f(Tm, <<"%u">>)));
@@ -167,6 +168,7 @@ f_A_test() -> ?assertEqual("Sunday", f(test_tm(), "%A")).
 f_C_test() -> ?assertEqual("20", f(test_tm(), "%C")).
 f_b_test() -> ?assertEqual("Jun", f(test_tm(), "%b")).
 f_B_test() -> ?assertEqual("June", f(test_tm(), "%B")).
+f_h_test() -> ?assertEqual("Jun", f(test_tm(), "%h")).
 
 literal_percent_test() -> 
   ?assertEqual("%%19:07:50%%", f(test_tm(), "%%%T%%")).

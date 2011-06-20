@@ -63,6 +63,15 @@ do_f(Tm, <<"%u">>) ->
   {Date,_} = calendar:now_to_local_time(Tm),
   integer_to_list(calendar:day_of_the_week(Date));
 
+do_f(Tm, <<"%w">>) ->
+  {Date,_} = calendar:now_to_local_time(Tm),
+  Day = calendar:day_of_the_week(Date),
+  WDay = case Day of
+    7 -> 0;
+    _ -> Day - 1
+  end,
+  integer_to_list(WDay);
+
 do_f({MegaSec,Sec,_}, <<"%s">>) -> 
   integer_to_list(1000000*MegaSec + Sec);
 
@@ -199,6 +208,7 @@ f_P_test() -> ?assertEqual("pm", f(test_tm(), "%P")).
 f_N_test() -> ?assertEqual("46435", f(test_tm(), "%N")).
 f_L_test() -> ?assertEqual("046", f(test_tm(), "%L")).
 f_u_test() -> ?assertEqual("7", f(test_tm(), "%u")).
+f_w_test() -> ?assertEqual("0", f(test_tm(), "%w")).
 f_a_test() -> ?assertEqual("Sun", f(test_tm(), "%a")).
 f_A_test() -> ?assertEqual("Sunday", f(test_tm(), "%A")).
 f_C_test() -> ?assertEqual("20", f(test_tm(), "%C")).

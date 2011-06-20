@@ -33,15 +33,8 @@ X %s - Number of seconds since 1970-01-01 00:00:00 UTC.
 X %S - Second of the minute (00..60)
 X %T - time, 24-hour (%H:%M:%S)
 X %u - Day of the week as a decimal, Monday being 1. (1..7)
-  %U - Week  number  of the current year,
-          starting with the first Sunday as the first
-          day of the first week (00..53)
-  %v - VMS date (%e-%b-%Y)
-  %V - Week number of year according to ISO 8601 (01..53)
-  %W - Week  number  of the current year,
-          starting with the first Monday as the first
-          day of the first week (00..53)
-  %w - Day of the week (Sunday is 0, 0..6)
+X %v - VMS date (%e-%b-%Y)
+X %w - Day of the week (Sunday is 0, 0..6)
 X %y - Year without a century (00..99)
 X %Y - Year with century
   %z - Time zone as  hour offset from UTC (e.g. +0900)

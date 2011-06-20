@@ -8,6 +8,11 @@ f({_MegaSec,_Sec,_MicroSec}=Tm, FormatStr) when is_list(FormatStr) ->
   Res = [do_f(Tm, FPart) || FPart <- re:split(FormatStr,"([%][^%])")],
   binary_to_list(list_to_binary(Res)).
 
+do_f(Tm, <<"%y">>) ->
+  {{YY,_MM,_DD},_} = calendar:now_to_local_time(Tm),
+  io_lib:format("~2.2.0w",[(YY rem 100)]);
+
+
 do_f(Tm, <<"%D">>) ->
   {{YY, MM, DD},_} = calendar:now_to_local_time(Tm),
   io_lib:format("~2.2.0w/~2.2.0w/~2.2.0w",[MM,DD,(YY rem 100)]);
@@ -23,6 +28,9 @@ f_D_test() ->
   ?assertEqual("06/19/11", f(test_tm(), "%D")),
   ?assertEqual("fooey06/19/11fooey", f(test_tm(), "fooey%Dfooey")).
 
+%y test
+f_y_test() ->
+  ?assertEqual("11", f(test_tm(), "%y")),
+  ?assertEqual("fooey11", f(test_tm(), "fooey%y")).
 
-%D test
 

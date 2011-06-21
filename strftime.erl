@@ -3,6 +3,9 @@
 
 -include_lib("eunit/include/eunit.hrl").
 
+% strftime:f(now(), FormatString)
+% strftime:f(now(), FormatString, universal | local)
+
 % because formatting times should be easy, like ruby's strftime
 
 % strftime:f(now(), "Printed on %m/%d/%Y").    => "Printed on 11/19/2007"

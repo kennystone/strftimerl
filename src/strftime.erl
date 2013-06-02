@@ -51,8 +51,6 @@
 % `%Y` - Year with century
 % `%%` - Literal '%' character
 
-
-
 f(Now, FormatStr) ->
   f(Now, FormatStr, local).
 
@@ -95,7 +93,10 @@ do_f(Tm, <<"%H">>, ZONAL) ->
 
 do_f(Tm, <<"%l">>, ZONAL) ->
   {_,{H,_M,_S}} = calendar:ZONAL(Tm),
-  pad(integer_to_list(H), 2);
+  case H < 13 of
+    true -> pad(integer_to_list(H), 2);
+    false -> pad(integer_to_list(H-12), 2)
+  end;
 
 do_f(Tm, <<"%k">>, ZONAL) ->
   {_,{H,_M,_S}} = calendar:ZONAL(Tm),
@@ -253,7 +254,7 @@ f_H_test() ->
   ?assertEqual("09", f(test_tm2(), "%H")).
 
 f_l_test() -> 
-  ?assertEqual("19", f(test_tm(), "%l")),
+  ?assertEqual(" 7", f(test_tm(), "%l")),
   ?assertEqual(" 9", f(test_tm2(), "%l")).
 
 f_M_test() -> ?assertEqual("07", f(test_tm(), "%M")).
@@ -277,8 +278,8 @@ f_r_test() -> ?assertEqual("07:07:50 PM", f(test_tm(), "%r")).
 f_v_test() -> ?assertEqual("19-Jun-2011", f(test_tm(), "%v")).
 f_s_test() -> ?assertEqual("1308528470", f(test_tm(), "%s")).
 f_I_test() -> 
-  ?assertEqual("09", f(test_tm2(), "%I")),
-  ?assertEqual("07", f(test_tm(), "%I")).
+  ?assertEqual("07", f(test_tm(), "%I")),
+  ?assertEqual("09", f(test_tm2(), "%I")).
 f_k_test() -> 
   ?assertEqual("19", f(test_tm(), "%k")),
   ?assertEqual(" 9", f(test_tm2(), "%k")).

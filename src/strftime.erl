@@ -55,7 +55,7 @@
 f(Now, FormatStr) ->
   f(Now, FormatStr, local).
 
-f({epoch, Epoch}=Now, FormatStr, ZONAL) when is_list(FormatStr) ->
+f({epoch, Epoch}, FormatStr, ZONAL) when is_list(FormatStr) ->
   MegaSec = trunc(Epoch / 1000000),
   Sec = Epoch - (MegaSec*1000000),
   f({MegaSec, Sec, 0}, FormatStr, ZONAL);

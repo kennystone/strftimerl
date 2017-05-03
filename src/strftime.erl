@@ -57,6 +57,8 @@ f(Now, FormatStr) when is_binary(FormatStr) ->
 f(Now, FormatStr) ->
   f(Now, FormatStr, local).
 
+f(Now, FormatStr, ZONAL) when is_binary(FormatStr) ->
+  f(Now, unicode:characters_to_list(FormatStr), ZONAL);
 f({epoch, Epoch}, FormatStr, ZONAL) when is_list(FormatStr) ->
   MegaSec = trunc(Epoch / 1000000),
   Sec = Epoch - (MegaSec*1000000),

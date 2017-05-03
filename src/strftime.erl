@@ -52,6 +52,8 @@
 % `%Y` - Year with century
 % `%%` - Literal '%' character
 
+f(Now, FormatStr) when is_binary(FormatStr) ->
+  f(Now, unicode:characters_to_list(FormatStr), local);
 f(Now, FormatStr) ->
   f(Now, FormatStr, local).
 
@@ -59,7 +61,6 @@ f({epoch, Epoch}, FormatStr, ZONAL) when is_list(FormatStr) ->
   MegaSec = trunc(Epoch / 1000000),
   Sec = Epoch - (MegaSec*1000000),
   f({MegaSec, Sec, 0}, FormatStr, ZONAL);
-
 f({_MegaSec,_Sec,_MicroSec}=Now, FormatStr, ZONAL) when is_list(FormatStr) ->
   ZONALF = case ZONAL of
     local     -> now_to_local_time;

@@ -8,9 +8,11 @@ because formatting times should be easy, like ruby's strftime
     strftime:f(now(), "at %I:%M%p", universal).  %=> "at 02:37PM"
     strftime:f(now(), "%D-%T.%N").               %=> "11/19/2007-08:38:02.445443"
 
-`strftime:f2` uses system local time
+    strftime:f({epoch, os:system_time(1)},"%a, %d-%b-%Y %H:%M:%S GMT", universal).
 
-`strftime:f3` allows you to specify 'local' or 'universal' as third argument.
+`strftime:f/2` uses system local time
+
+`strftime:f/3` allows you to specify 'local' or 'universal' as third argument.
 
 `strftime:f(now(), FormatString)`
 

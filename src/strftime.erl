@@ -52,8 +52,6 @@
 % `%Y` - Year with century
 % `%%` - Literal '%' character
 
-f(Now, FormatStr) when is_binary(FormatStr) ->
-  f(Now, unicode:characters_to_list(FormatStr), local);
 f(Now, FormatStr) ->
   f(Now, FormatStr, local).
 

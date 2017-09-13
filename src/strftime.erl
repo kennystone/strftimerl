@@ -12,6 +12,7 @@
 % strftime:f(now(), "at %I:%M%p").             => "at 08:37AM"
 % strftime:f(now(), "at %I:%M%p", universal).  => "at 02:37PM"
 % strftime:f(now(), "%D-%T.%N").               => "11/19/2007-08:38:02.445443"
+% strftime:f({epoch, os:system_time(1)},"%a, %d-%b-%Y %H:%M:%S GMT", universal).
 
 % `strftime:f2` uses system local time
 
@@ -51,11 +52,15 @@
 % `%Y` - Year with century
 % `%%` - Literal '%' character
 
-
-
 f(Now, FormatStr) ->
   f(Now, FormatStr, local).
 
+f(Now, FormatStr, ZONAL) when is_binary(FormatStr) ->
+  f(Now, unicode:characters_to_list(FormatStr), ZONAL);
+f({epoch, Epoch}, FormatStr, ZONAL) when is_list(FormatStr) ->
+  MegaSec = trunc(Epoch / 1000000),
+  Sec = Epoch - (MegaSec*1000000),
+  f({MegaSec, Sec, 0}, FormatStr, ZONAL);
 f({_MegaSec,_Sec,_MicroSec}=Now, FormatStr, ZONAL) when is_list(FormatStr) ->
   ZONALF = case ZONAL of
     local     -> now_to_local_time;
@@ -95,7 +100,10 @@ do_f(Tm, <<"%H">>, ZONAL) ->
 
 do_f(Tm, <<"%l">>, ZONAL) ->
   {_,{H,_M,_S}} = calendar:ZONAL(Tm),
-  pad(integer_to_list(H), 2);
+  case H < 13 of
+    true -> pad(integer_to_list(H), 2);
+    false ->pad(integer_to_list(H-12), 2)
+  end;
 
 do_f(Tm, <<"%k">>, ZONAL) ->
   {_,{H,_M,_S}} = calendar:ZONAL(Tm),
@@ -253,7 +261,7 @@ f_H_test() ->
   ?assertEqual("09", f(test_tm2(), "%H")).
 
 f_l_test() -> 
-  ?assertEqual("19", f(test_tm(), "%l")),
+  ?assertEqual(" 7", f(test_tm(), "%l")),
   ?assertEqual(" 9", f(test_tm2(), "%l")).
 
 f_M_test() -> ?assertEqual("07", f(test_tm(), "%M")).
